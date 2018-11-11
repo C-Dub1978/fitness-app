@@ -1,4 +1,6 @@
 import { NgModule } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -16,19 +18,21 @@ import { WelcomeComponent } from './welcome/welcome.component';
 @NgModule({
   declarations: [
     AppComponent,
-    SignupComponent,
-    LoginComponent,
-    TrainingComponent,
     CurrentTrainingComponent,
+    LoginComponent,
     NewTrainingComponent,
     PastTrainingComponent,
+    SignupComponent,
+    TrainingComponent,
     WelcomeComponent
   ],
   imports: [
-    BrowserAnimationsModule,
     BrowserModule,
-    AppRoutingModule,
-    MaterialModule
+    BrowserAnimationsModule,
+    FlexLayoutModule,
+    FormsModule,
+    MaterialModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
