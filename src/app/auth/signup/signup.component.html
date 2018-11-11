@@ -3,6 +3,7 @@
     #f="ngForm"
     fxLayout="column"
     fxLayoutAlign="center center"
+    fxLayoutGap="15px"
     (ngSubmit)="onSubmitForm(f)"
   >
     <mat-form-field>
@@ -38,6 +39,31 @@
       <mat-hint align="end"> {{ pwdInput.value?.length }} / 8</mat-hint>
       <mat-error>Must be at least 8 characters</mat-error>
     </mat-form-field>
-    <button mat-raised-button color="primary" type="submit">Submit</button>
+
+    <mat-form-field>
+      <input
+        ngModel
+        name="birthdate"
+        matInput
+        placeholder="Your birthdate (must be 18)"
+        [matDatepicker]="picker"
+        [max]="maxDate"
+      />
+      <mat-datepicker-toggle mat-suffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-checkbox required ngModel name="agree" color="primary"
+      >Agree to terms and conditions</mat-checkbox
+    >
+
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="f.invalid"
+    >
+      Submit
+    </button>
   </form>
 </section>
