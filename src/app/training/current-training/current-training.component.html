@@ -1,3 +1,14 @@
-<p>
-  current-training works!
-</p>
+<section
+  class="current-training"
+  fxLayout="column"
+  fxLayoutAlign="center center"
+>
+  <mat-progress-spinner
+    mode="determinate"
+    [value]="progress"
+  ></mat-progress-spinner>
+  <h1>Progress: {{ progress }}%</h1>
+  <p *ngIf="progress < 100">Keep pushing, you got this!</p>
+  <p *ngIf="progress >= 100">Workout Complete! You crushed it!</p>
+  <button mat-raised-button (click)="onStop()">Stop</button>
+</section>
