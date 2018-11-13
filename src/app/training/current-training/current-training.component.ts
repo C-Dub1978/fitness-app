@@ -13,22 +13,40 @@ export class CurrentTrainingComponent implements OnInit {
   stopTraining = new EventEmitter<void>();
   progress = 0;
   timer: any;
-  // dialogRef: MatDialogRef;
+  dialogRef: MatDialogRef<StopTrainingComponent>;
 
   constructor(private dialog: MatDialog) {}
 
+  killTimer() {
+    this.timer = null;
+    this.progress = 0;
+  }
+
   ngOnInit() {
+    this.startOrResumeTimer();
+  }
+
+  onStop() {
+    clearInterval(this.timer);
+    this.dialogRef = this.dialog.open(StopTrainingComponent, {
+      data: { progress: this.progress }
+    });
+    this.dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.stopTraining.emit();
+        this.killTimer();
+      } else if (!result) {
+        this.startOrResumeTimer();
+      }
+    });
+  }
+
+  startOrResumeTimer() {
     this.timer = setInterval(() => {
       this.progress += 5;
       if (this.progress >= 100) {
         clearInterval(this.timer);
       }
     }, 1000);
-  }
-
-  onStop() {
-    clearInterval(this.timer);
-    this.dialog.open(StopTrainingComponent, {});
-    // this.stopTraining.emit();
   }
 }
