@@ -48,6 +48,7 @@
         placeholder="Your birthdate (must be 18)"
         [matDatepicker]="picker"
         [max]="maxDate"
+        required
       />
       <mat-datepicker-toggle mat-suffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>

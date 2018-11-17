@@ -15,7 +15,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnDestroy, OnInit {
-  isAuth: boolean;
+  isAuth = false;
   @Output()
   sidenavToggle = new EventEmitter<void>();
   subscription: Subscription;
@@ -30,6 +30,11 @@ export class HeaderComponent implements OnDestroy, OnInit {
     this.subscription = this.authService.authChange.subscribe(authStatus => {
       this.isAuth = authStatus;
     });
+  }
+
+  onLogout() {
+    this.isAuth = false;
+    this.authService.logout();
   }
 
   onToggleSidenav() {
