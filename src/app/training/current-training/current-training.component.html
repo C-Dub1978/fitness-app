@@ -10,5 +10,10 @@
   <h1>Progress: {{ progress }}%</h1>
   <p *ngIf="progress < 100">Keep pushing, you got this!</p>
   <p *ngIf="progress >= 100">Workout Complete! You crushed it!</p>
-  <button mat-raised-button (click)="onStop()">Stop</button>
+  <button mat-raised-button *ngIf="progress < 100" (click)="onStop()">
+    Stop
+  </button>
+  <button mat-raised-button *ngIf="progress >= 100" (click)="onBack()">
+    Back
+  </button>
 </section>
