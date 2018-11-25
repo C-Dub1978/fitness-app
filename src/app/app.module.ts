@@ -4,10 +4,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AppComponent } from './app.component';
 import { AuthService } from './auth/auth.service';
 import { AppRoutingModule } from './app-routing.module';
 import { CurrentTrainingComponent } from './training/current-training/current-training.component';
+import { environment } from '../environments/environment';
 import { HeaderComponent } from './navigation/header/header.component';
 import { LoginComponent } from './auth/login/login.component';
 import { MaterialModule } from './material.module';
@@ -41,7 +44,9 @@ import { WelcomeComponent } from './welcome/welcome.component';
     FormsModule,
     MaterialModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AngularFireModule.initializeApp(environment.firebase, 'fitnessApp'),
+    AngularFirestoreModule
   ],
   providers: [AuthService, TrainingService],
   bootstrap: [AppComponent],

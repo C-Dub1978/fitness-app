@@ -5,12 +5,12 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: '<your-key>',
-    authDomain: '<your-project-authdomain>',
-    databaseURL: '<your-database-URL>',
-    projectId: '<your-project-id>',
-    storageBucket: '<your-storage-bucket>',
-    messagingSenderId: '<your-messaging-sender-id>'
+    apiKey: 'AIzaSyCoEArUvY2_rbYbBu_ctX3waPE2wk1Sxxs',
+    authDomain: 'fitnessapp-6e2f6.firebaseapp.com',
+    databaseURL: 'https://fitnessapp-6e2f6.firebaseio.com',
+    projectId: 'fitnessapp-6e2f6',
+    storageBucket: 'fitnessapp-6e2f6.appspot.com',
+    messagingSenderId: '629721652922'
   }
 };
 
