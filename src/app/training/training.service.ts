@@ -63,13 +63,9 @@ export class TrainingService {
     this.db
       .collection('finishedExercises')
       .valueChanges()
-      .subscribe((exercises: Exercises[]) => {
+      .subscribe((exercises: Exercise[]) => {
         this.finishedExercisesChanged.next(exercises);
       });
-  }
-
-  getCompletedOrCanceledExercises() {
-    return this.finishedExercises.slice();
   }
 
   getRunningExercise() {
@@ -77,6 +73,9 @@ export class TrainingService {
   }
 
   startExercise(id: string) {
+    // this.db
+    //   .doc('availableExercises/' + id)
+    //   .update({ lastSelected: new Date() });
     this.runningExercise = this.availableExercises.find(ex => ex.id === id);
     this.exerciseChanged.next({ ...this.runningExercise });
   }

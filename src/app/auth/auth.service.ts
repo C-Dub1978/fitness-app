@@ -14,7 +14,6 @@ export class AuthService {
   constructor(private router: Router) {}
 
   registerUser(authData: AuthData) {
-    console.log('registering user: ', authData);
     this.user = {
       email: authData.email,
       userId: Math.round(Math.random() * 10000).toString()
