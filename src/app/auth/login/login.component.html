@@ -41,4 +41,8 @@
       Submit
     </button>
   </form>
+  <br />
+  <div *ngIf="!isAuth && touched" fxLayout="row" fxLayoutAlign="center center">
+    Error logging in
+  </div>
 </section>
