@@ -33,6 +33,7 @@
     </mat-form-field>
 
     <button
+      *ngIf="!isLoading"
       mat-raised-button
       color="primary"
       type="submit"
@@ -40,9 +41,6 @@
     >
       Submit
     </button>
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
   </form>
-  <br />
-  <div *ngIf="!isAuth && touched" fxLayout="row" fxLayoutAlign="center center">
-    Error logging in
-  </div>
 </section>

@@ -22,6 +22,7 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { StopTrainingComponent } from './training/current-training/stop-training.component';
 import { TrainingComponent } from './training/training.component';
 import { TrainingService } from './training/training.service';
+import { UIService } from './shared/ui.service';
 import { WelcomeComponent } from './welcome/welcome.component';
 
 @NgModule({
@@ -50,7 +51,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
     AngularFirestoreModule,
     AngularFireAuthModule
   ],
-  providers: [AuthService, TrainingService],
+  providers: [AuthService, TrainingService, UIService],
   bootstrap: [AppComponent],
   entryComponents: [StopTrainingComponent]
 })

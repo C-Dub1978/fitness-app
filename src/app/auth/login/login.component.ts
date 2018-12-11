@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 import { AuthService } from './../auth.service';
+import { UIService } from 'src/app/shared/ui.service';
 
 @Component({
   selector: 'app-login',
@@ -12,30 +13,27 @@ import { AuthService } from './../auth.service';
 })
 export class LoginComponent implements OnDestroy, OnInit {
   loginForm: FormGroup;
-  isAuth;
-  touched = false;
   authSub: Subscription;
+  isLoading = false;
+  loadingSub: Subscription;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private uiService: UIService) {}
 
   ngOnDestroy() {
     this.authSub.unsubscribe();
   }
 
   ngOnInit() {
+    this.loadingSub = this.uiService.loadingStateChanged.subscribe(
+      isLoading => {
+        this.isLoading = isLoading;
+      }
+    );
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required])
     });
-    this.authSub = this.authService.authChange.subscribe(authStatus => {
-      if (authStatus === true) {
-        this.isAuth = true;
-      } else {
-        this.touched = true;
-        this.isAuth = false;
-        this.loginForm.reset();
-      }
-    });
+    this.authSub = this.authService.authChange.subscribe(authStatus => {});
   }
 
   onSubmitLogin() {

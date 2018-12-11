@@ -44,9 +44,14 @@
 
   <ng-container matColumnDef="status"
     ><mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
-    <mat-cell *matCellDef="let element">{{
-      element.state
-    }}</mat-cell></ng-container
+    <mat-cell
+      *matCellDef="let element"
+      [ngClass]="{
+        isCompleted: element.state === 'completed',
+        notCompleted: element.state === 'canceled'
+      }"
+      >{{ element.state }}</mat-cell
+    ></ng-container
   >
 
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
