@@ -5,7 +5,7 @@
         >Let's get to working out</mat-card-title
       >
       <mat-card-content fxLayoutAlign="center">
-        <mat-form-field *ngIf="!isLoading">
+        <mat-form-field *ngIf="!isLoading && exercises">
           <mat-select
             placeholder="Select Workout"
             ngModel
@@ -27,11 +27,21 @@
       </mat-card-content>
       <mat-card-actions fxLayoutAlign="center" *ngIf="!isLoading">
         <button
+          *ngIf="exercises"
           mat-icon-button
           [disabled]="f.invalid"
           fxLayoutAlign="center center"
         >
           <mat-icon>pool</mat-icon>Get It!
+        </button>
+        <button
+          *ngIf="!exercises"
+          type="button"
+          mat-button
+          fxLayoutAlign="center center"
+          (click)="(fetchExercises)"
+        >
+          Fetch Again
         </button>
       </mat-card-actions>
     </mat-card>

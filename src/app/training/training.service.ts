@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 
+import { map } from 'rxjs/operators';
+import { Subject, Subscription } from 'rxjs';
+
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Exercise } from './exercise.model';
-import { Subject, Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { UIService } from 'src/app/shared/ui.service';
 
 @Injectable()
 export class TrainingService {
@@ -14,7 +16,7 @@ export class TrainingService {
   exercisesChanged = new Subject<Exercise[]>();
   finishedExercisesChanged = new Subject<Exercise[]>();
 
-  constructor(private db: AngularFirestore) {}
+  constructor(private db: AngularFirestore, private uiService: UIService) {}
 
   completeExercise() {
     this.addDataToDatabase({
@@ -61,11 +63,18 @@ export class TrainingService {
         )
         .subscribe(
           (exercises: Exercise[]) => {
+            this.uiService.loadingStateChanged.next(false);
             this.availableExercises = exercises;
             this.exercisesChanged.next([...this.availableExercises]);
           },
           error => {
-            console.log(error);
+            this.uiService.loadingStateChanged.next(false);
+            this.uiService.showSnackBar(
+              'Error fetching exercises....',
+              null,
+              3000
+            );
+            this.exerciseChanged.next(null);
           }
         )
     );
@@ -92,9 +101,6 @@ export class TrainingService {
   }
 
   startExercise(id: string) {
-    // this.db
-    //   .doc('availableExercises/' + id)
-    //   .update({ lastSelected: new Date() });
     this.runningExercise = this.availableExercises.find(ex => ex.id === id);
     this.exerciseChanged.next({ ...this.runningExercise });
   }

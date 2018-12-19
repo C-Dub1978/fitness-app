@@ -18,12 +18,16 @@ export class NewTrainingComponent implements OnDestroy, OnInit {
 
   constructor(private trainingService: TrainingService) {}
 
+  fetchExercises() {
+    this.trainingService.fetchAvailableExercises();
+  }
+
   ngOnDestroy() {
     this.exercisesSubscription.unsubscribe();
   }
 
   ngOnInit() {
-    this.trainingService.fetchAvailableExercises();
+    this.fetchExercises();
     this.exercisesSubscription = this.trainingService.exercisesChanged.subscribe(
       (exercises: Exercise[]) => {
         if (!exercises) {
