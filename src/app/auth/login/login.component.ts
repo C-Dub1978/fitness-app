@@ -20,7 +20,12 @@ export class LoginComponent implements OnDestroy, OnInit {
   constructor(private authService: AuthService, private uiService: UIService) {}
 
   ngOnDestroy() {
-    this.authSub.unsubscribe();
+    if (this.authSub) {
+      this.authSub.unsubscribe();
+    }
+    if (this.loadingSub) {
+      this.loadingSub.unsubscribe();
+    }
   }
 
   ngOnInit() {
