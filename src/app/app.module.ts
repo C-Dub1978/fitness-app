@@ -1,11 +1,12 @@
-import { AuthGuard } from './auth/auth.guard';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { StoreModule } from '@ngrx/store';
 
 import { AngularFireModule } from 'angularfire2';
 import { AppComponent } from './app.component';
+import { appReducer } from './app.reducer';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthModule } from './auth/auth.module';
 import { AuthService } from './auth/auth.service';
@@ -33,7 +34,9 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
     MaterialModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase, 'fitnessApp'),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    // This is where we register our reducer(s)
+    StoreModule.forRoot({ ui: appReducer })
   ],
   providers: [AuthService, TrainingService, UIService],
   bootstrap: [AppComponent]
