@@ -1,39 +1,32 @@
-import {
-  Component,
-  OnDestroy,
-  OnInit,
-  Output,
-  EventEmitter
-} from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
-import { AuthService } from './../../auth/auth.service';
-import { Subscription } from 'rxjs';
+import * as fromRoot from '../../app.reducer';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnDestroy, OnInit {
-  isAuth = false;
+export class HeaderComponent implements OnInit {
+  isAuth$: Observable<boolean>;
   @Output()
   sidenavToggle = new EventEmitter<void>();
-  subscription: Subscription;
 
-  constructor(private authService: AuthService) {}
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
+  constructor(
+    private store: Store<fromRoot.State>,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
-    this.subscription = this.authService.authChange.subscribe(authStatus => {
-      this.isAuth = authStatus;
-    });
+    this.isAuth$ = this.store.select(fromRoot.getIsAuth);
   }
 
   onLogout() {
-    this.isAuth = false;
+    this.isAuth$ = this.store.select(fromRoot.getIsAuth);
     this.authService.logout();
   }
 

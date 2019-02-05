@@ -6,7 +6,7 @@ import { StoreModule } from '@ngrx/store';
 
 import { AngularFireModule } from 'angularfire2';
 import { AppComponent } from './app.component';
-import { appReducer } from './app.reducer';
+import { reducers } from './app.reducer';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthModule } from './auth/auth.module';
 import { AuthService } from './auth/auth.service';
@@ -35,8 +35,10 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase, 'fitnessApp'),
     AngularFirestoreModule,
-    // This is where we register our reducer(s)
-    StoreModule.forRoot({ ui: appReducer })
+    // This is where we register our reducer(s), use a friendly name for the
+    // property name because we will have multiple reducers for different parts
+    // of application state
+    StoreModule.forRoot(reducers)
   ],
   providers: [AuthService, TrainingService, UIService],
   bootstrap: [AppComponent]
