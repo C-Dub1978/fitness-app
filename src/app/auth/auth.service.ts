@@ -24,13 +24,9 @@ export class AuthService {
   initAuthListener() {
     this.afAuth.authState.subscribe(user => {
       if (user) {
-        // this.isAuthenticated = true;
-        // this.authChange.next(true);
         this.store.dispatch(new Auth.SetAuthenticated());
         this.router.navigate(['/training']);
       } else {
-        // this.isAuthenticated = false;
-        // this.authChange.next(false);
         this.store.dispatch(new Auth.SetUnauthenticated());
         this.trainingService.cancelSubscriptions();
         this.router.navigate(['']);
@@ -50,7 +46,6 @@ export class AuthService {
     this.afAuth.auth
       .createUserWithEmailAndPassword(authData.email, authData.password)
       .then(result => {
-        // this.uiService.loadingStateChanged.next(false);
         this.store.dispatch(new UI.StopLoading());
       })
       .catch(error => {
@@ -64,7 +59,6 @@ export class AuthService {
   }
 
   login(authData: AuthData) {
-    // this.uiService.loadingStateChanged.next(true);
     this.store.dispatch(new UI.StartLoading());
     this.afAuth.auth
       .signInWithEmailAndPassword(authData.email, authData.password)
