@@ -34,7 +34,7 @@ export class CurrentTrainingComponent implements OnInit {
   }
 
   onBack() {
-    this.trainingService.finishedExercise();
+    this.trainingService.completeExercise();
   }
 
   onStop() {
